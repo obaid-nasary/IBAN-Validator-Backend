@@ -1,7 +1,6 @@
 package com.example.IBAN;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Table
 @Entity
@@ -20,18 +19,18 @@ public class Iban {
     )
     private Long id;
     private String iban;
-    private Long valid;
+    private Integer valid;
 
     public Iban() {
     }
 
-    public Iban(Long id, String iban, Long valid) {
+    public Iban(Long id, String iban, Integer valid) {
         this.id = id;
         this.iban = iban;
         this.valid = valid;
     }
 
-    public Iban(String iban, Long valid) {
+    public Iban(String iban, Integer valid) {
         this.iban = iban;
         this.valid = valid;
     }
@@ -56,11 +55,11 @@ public class Iban {
         this.iban = iban;
     }
 
-    public Long getValid() {
+    public Integer getValid() {
         return valid;
     }
 
-    public void setValid(Long valid) {
+    public void setValid(Integer valid) {
         this.valid = valid;
     }
 
