@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class IbanController {
 
 
@@ -24,7 +25,7 @@ public class IbanController {
      * @return
      */
 
-    @GetMapping("/iban/")
+    @GetMapping("/iban")
     public List<Iban> getIbans(){
 
         return ibanService.getIbans();
@@ -37,6 +38,7 @@ public class IbanController {
 
     @PostMapping("/iban/")
     public void addIban(@RequestBody Iban newIban){
+
         ibanService.addNewIban(newIban);
     }
 
@@ -47,7 +49,8 @@ public class IbanController {
      */
 
     @GetMapping("/iban/{valid}/")
-    public List<Iban> getSingleIban(@PathVariable("valid") Long valid){
+    public List<Iban> getSingleIban(@PathVariable("valid") Integer valid){
+
         return ibanService.getIban(valid);
     }
 

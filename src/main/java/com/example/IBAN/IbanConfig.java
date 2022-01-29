@@ -5,11 +5,17 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.Column;
+import javax.persistence.MapKeyColumn;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @EnableAutoConfiguration
 @Configuration
 public class IbanConfig {
+
+
 
 /**
     @Bean
