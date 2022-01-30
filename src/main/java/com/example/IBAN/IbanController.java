@@ -31,16 +31,11 @@ public class IbanController {
 
     /**
      * @param newIban as an object to insert and save in database
-     * @return a message to clarify if the IBAN is valid or not
      */
 
     @PostMapping("/iban/")
-    public ResponseEntity addIban(@RequestBody Iban newIban) {
+    public void addIban (@RequestBody Iban newIban) {
         ibanService.addNewIban(newIban);
-        if (newIban.getValid() == 1){
-            return new ResponseEntity("The IBAN is valid", HttpStatus.OK);
-        }
-        return new ResponseEntity("The IBAN is invalid", HttpStatus.OK);
     }
 
     /**
