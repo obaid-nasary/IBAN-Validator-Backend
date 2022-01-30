@@ -41,15 +41,23 @@ public class IbanController {
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
-
     /**
      * @param valid takes values as 1 for true/valid and 0 for false/invalid IBAN number and
      * @return the log of IBAN numbers based on parameter value
      */
 
     @GetMapping("/iban/{valid}")
-    public List<Iban> getSingleIban(@PathVariable("valid") Integer valid) {
-        return ibanService.getIban(valid);
+    public List<Iban> getIbanByValid(@PathVariable("valid") Integer valid) {
+        return ibanService.getIbanByValid(valid);
+    }
+
+    /**
+     *
+     * @param id takes as the id for IBAN number
+     */
+    @DeleteMapping("/iban/{id}")
+    public void deleteIban(@PathVariable Long id){
+        ibanService.deleteIban(id);
     }
 
 }

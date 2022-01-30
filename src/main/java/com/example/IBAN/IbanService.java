@@ -2,11 +2,13 @@ package com.example.IBAN;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.util.List;
 
 @Service
+@Transactional
 public class IbanService extends Throwable{
 
     private final IbanRepository ibanRepository;
@@ -52,8 +54,16 @@ public class IbanService extends Throwable{
      * @param valid as an integer to pass to the @link
      * @return IBAN based on validity either valid or invalid
      */
-    public List<Iban> getIban(Integer valid){
+    public List<Iban> getIbanByValid(Integer valid){
         return ibanRepository.findIbanByValid(valid);
+    }
+
+    /**
+     *
+     * @param id takes as the id for IBAN number
+     */
+    public void deleteIban(Long id){
+        ibanRepository.deleteIbanById(id);
     }
 
     /**
@@ -62,7 +72,7 @@ public class IbanService extends Throwable{
      * @return if an IBAN number inserted is valid or not based on
      * international rules of IBAN
      */
-    public static boolean ibanValidation(String iban){
+    public boolean ibanValidation(String iban){
 
         // Remove any whitespace in the string
         String accountNumber = iban.trim();
@@ -76,7 +86,8 @@ public class IbanService extends Throwable{
             return false;
         }
 
-        // Move the first four characters to the end of the string i.e. 15 for Norway the smallest, 32 for Saint Lucia the longest
+
+        // Move the first four characters to the end of the string i.e. 15 for Norway the minimum, 32 for Saint Lucia the maximum
         noSpaceAccountNumber = noSpaceAccountNumber.substring(4) + noSpaceAccountNumber.substring(0,4);
 
         // Replace each letter with two digits, where A = 10, B = 11 and Z = 35
