@@ -35,16 +35,16 @@ public class IbanService extends Throwable{
      *
      * Saves new IBAN to the database also calls ibanValidation()
      * to validate and set iban.setValid() to either 1 or 0
-     * 
+     *
      */
-    public void addNewIban(Iban iban){
 
+    public Iban addNewIban(Iban iban) {
         if(ibanValidation(iban.getIban())) {
             iban.setValid(1);
         }else{
             iban.setValid(0);
         }
-        ibanRepository.save(iban);
+        return ibanRepository.save(iban);
     }
 
     /**

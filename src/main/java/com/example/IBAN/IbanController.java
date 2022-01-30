@@ -30,13 +30,17 @@ public class IbanController {
     }
 
     /**
+     *
      * @param newIban as an object to insert and save in database
+     * @return the http status and inserted data
      */
 
     @PostMapping("/iban/")
-    public void addIban (@RequestBody Iban newIban) {
-        ibanService.addNewIban(newIban);
+    public ResponseEntity<Iban> addIban(@RequestBody Iban newIban) {
+        Iban newEmployee = ibanService.addNewIban(newIban);
+        return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
+
 
     /**
      * @param valid takes values as 1 for true/valid and 0 for false/invalid IBAN number and
