@@ -17,13 +17,19 @@ class IbanServiceTest {
     private IbanRepository ibanRepository;
     private IbanService toTest;
 
+    /**
+     * @BeforeEach is used to signal that the annotated method should be executed before each invocation of @Test
+     */
     @BeforeEach
     void setUp(){
         toTest = new IbanService(ibanRepository);
     }
 
+    /**
+     * Tests if all the IBAN numbers log prints
+     */
     @Test
-    void canGetIbans() {
+    void canGetAllIbans() {
         // when
         toTest.getIbans();
 
@@ -31,8 +37,11 @@ class IbanServiceTest {
         verify(ibanRepository).findAll();
     }
 
+    /**
+     * Tests if adding new is successful
+     */
     @Test
-    void addNewIban() {
+    void addsNewIban() {
         // given
         Iban iban = new Iban(
                 "LT47 2123 5609 6090"
@@ -50,25 +59,38 @@ class IbanServiceTest {
         assertThat(capturedIban).isEqualTo(iban);
     }
 
+    /**
+     * Tests if the entered IBAN number is invalid
+     */
+
     @Test
-    void checkInvalidIbanNumber() {
-        String ibanNumber = "LT47 2123 5609 6090";
+    void checksInvalidIbanNumber() {
 
-        toTest.ibanValidation(ibanNumber);
+        // given
+        String invalidIbanNumber = "LT47 2123 5609 6090";
 
-        boolean check = toTest.ibanValidation(ibanNumber);
+        // when
+        toTest.ibanValidation(invalidIbanNumber);
 
+        // then
+        boolean check = toTest.ibanValidation(invalidIbanNumber);
         assertThat(check).isEqualTo(false);
     }
 
+    /**
+     * Tests if entered IBAN number is valid
+     */
     @Test
-    void checkValidIbanNumber() {
-        String ibanNumber = "LT96 3250 0471 7948 3700";
+    void checksValidIbanNumber() {
 
-        toTest.ibanValidation(ibanNumber);
+        // given
+        String validIbanNumber = "NL02 ABNA 0123 4567 89";
 
-        boolean check = toTest.ibanValidation(ibanNumber);
+        // when
+        toTest.ibanValidation(validIbanNumber);
 
+        // then
+        boolean check = toTest.ibanValidation(validIbanNumber);
         assertThat(check).isEqualTo(true);
     }
 }
